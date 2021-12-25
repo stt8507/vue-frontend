@@ -1,87 +1,63 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <form>
-        <div class="input-group mb-3 col-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">id</span>
-          </div>
-          <input
-            v-model="idn"
-            type="text"
-            class="form-control"
-            placeholder="Username"
-          />
-          <input type="button" @click="getMemberById(idn)" value="getbyId" />
-
-          <input type="text" class="form-control" placeholder="Your Email" />
-          <div class="input-group-prepend">
-            <span class="input-group-text">@example.com</span>
-          </div>
-        </div>
-      </form>
-    </div>
-    <table class="table">
-      <thead>
-        <th>id</th>
-        <th>emailId</th>
-        <th>firstName</th>
-        <th>lastName</th>
-      </thead>
-      <tbody>
-        <tr v-for="e in members" v-bind:key="e.id">
-          <td>{{ e.id }}</td>
-          <td>{{ e.emailId }}</td>
-          <td>{{ e.firstName }}</td>
-          <td>{{ e.lastName }}</td>
-          <td>
-            <input type="button" @click="deleteMember(idn)" value="dele" />
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <el-table :data="tableData" style="width: 100%">
+    <el-table-column label="id" prop="id"></el-table-column>
+    <el-table-column label="Name" prop="userName"></el-table-column>
+    <el-table-column label="password" prop="password"></el-table-column>
+    <el-table-column label="EmailId" prop="emailId"></el-table-column>
+    <el-table-column align="right">
+      <template slot="header" slot-scope="scope">
+        <el-input @keyup.enter.native="searchMemberbyName(scope.row.userName, search)"
+        @input="change($event)" v-model="search" size="mini" placeholder="输入關键字搜索"/>
+      </template>
+      <template slot-scope="scope">
+        <member-edit :source="editVal.source" :submitName='editVal.submitName' :type="editVal.type" :size="editVal.size" :inputForm="scope.row"/>
+        <el-col :span="12">
+          <el-button size="mini" type="danger" @click="handleDelete(scope.row.id)">Delete</el-button>
+        </el-col>
+        
+      </template>
+    </el-table-column>
+  </el-table>
 </template>
 
 <script>
 import MemberService from "../service/MemberService";
-export default {
-  name: "Member",
-  data() {
-    return {
-      members: [],
-      member: {
-        id: Number,
-        emailId: "",
-        firstName: "",
-        lastName: "",
+import MemberEdit from "./MemberEdit.vue";
+  export default {
+  components: { MemberEdit },
+    data() {
+      return {
+        tableData: [],
+        search: '',
+        editVal:{
+          source : 'Update',
+          submitName : '更改資料',
+          type: 'primary',
+          size: 'mini'
+        },
+      }
+    },
+    methods: {
+      getMembers() {
+        MemberService.getMembers().then((response) => {
+          this.tableData = response.data;
+        });
       },
-      idn: 0,
-    };
-  },
-  methods: {
-    getMembers() {
-      MemberService.getMembers().then((response) => {
-        this.members = response.data;
-      });
+      handleDelete(id) {
+        MemberService.deleteMember(id);
+      },
+      change(e){
+        this.$forceUpdate();
+        MemberService.getMemberByName(e).then((response) => {
+          this.tableData = [];
+          this.tableData.push(response.data);
+        }).catch(() =>{
+          this.tableData = [];
+        });
+      }
     },
-    getMemberById(id) {
-      MemberService.getMemberById(id).then((response) => {
-        this.member.id = response.data.id;
-        this.member.emailId = response.data.emailId;
-        this.member.firstName = response.data.firstName;
-        this.member.lastName = response.data.lastName;
-      });
+    created() {
+      this.getMembers();
     },
-    updateMember(data) {
-      MemberService.updateMember(data);
-    },
-    deleteMember(id) {
-      MemberService.deleteMember(id);
-    },
-  },
-  created() {
-    this.getMembers();
-  },
-};
+  }
 </script>

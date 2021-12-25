@@ -14,8 +14,8 @@
     </el-form-item>
     <el-form-item>
       <el-checkbox v-model="checked" checked class="remember">記住密碼</el-checkbox>
-      <el-col class="inline" :span="5">
-        <member-edit ref="member_edit"/>
+      <el-col class="inline" :span="7">
+        <member-edit :source="editVal.source" :submitName='editVal.submitName' />
       </el-col>
     </el-form-item>
     <el-form-item style="width: 100%">
@@ -38,20 +38,27 @@ export default {
         username: "",
         pwd: "",
       },
+      editVal:{
+        source : '註冊會員',
+        submitName : '立即註冊',
+        type: 'text',
+        size: '',
+      },
       rules: {
         username: [
           { required: true, message: "請輸入帳號", trigger: "blur" },
-          //{ validator: validaePass }
         ],
         pwd: [
           { required: true, message: "請輸入密碼", trigger: "blur" },
-          //{ validator: validaePass2 }
         ],
       },
       checked: true,
     };
   },
   methods: {
+    onSubmit(){
+      
+    }
   },
 };
 </script>
