@@ -46,18 +46,19 @@ import MemberEdit from "./MemberEdit.vue";
       handleDelete(id) {
         MemberService.deleteMember(id);
       },
-      change(e){
+      async change(e){
         this.$forceUpdate();
-        MemberService.getMemberByName(e).then((response) => {
+        await MemberService.getMemberByName(e).then((response) => {
           this.tableData = [];
           this.tableData.push(response.data);
         }).catch(() =>{
           this.tableData = [];
         });
+        
       }
     },
     created() {
-      this.getMembers();
+      //this.getMembers();
     },
   }
 </script>

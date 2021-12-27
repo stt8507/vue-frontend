@@ -28,7 +28,7 @@
 
 <script>
 import MemberEdit from "./MemberEdit.vue";
-import axios from 'axios';
+import axios from '../service/axios';
 export default {
   components: { MemberEdit },
   name: "登入",

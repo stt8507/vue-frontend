@@ -9,6 +9,14 @@ const store = new Vuex.Store({
       auth: false,
       token: ''
     },
+    getters:{
+      auth: state => {
+        return state.auth
+      },
+      token: state => {
+        return state.token
+      },
+    },
     mutations: {
       // 將state設定為參數
       SetAuth(state) {

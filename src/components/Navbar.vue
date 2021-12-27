@@ -24,7 +24,7 @@
         </el-submenu>
       </el-submenu>
       <el-menu-item index="3" disabled>消息中心</el-menu-item>
-      <el-menu-item index="4"><router-link to="/" @click="logout">登出</router-link></el-menu-item>
+      <el-menu-item index="4"><router-link to="/" @click="logout()">登出</router-link></el-menu-item>
     </el-menu>
   </nav>
 </template>
