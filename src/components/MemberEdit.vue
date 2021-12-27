@@ -59,6 +59,7 @@ export default {
     onSubmit(data) {
       if(this.source === '註冊會員'){
         MemberService.createMember(data);
+        
       }else{
         MemberService.updateMember(data);
       }

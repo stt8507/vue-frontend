@@ -38,8 +38,8 @@ import MemberEdit from "./MemberEdit.vue";
       }
     },
     methods: {
-      getMembers() {
-        MemberService.getMembers().then((response) => {
+      async getMembers() {
+        await MemberService.getMembers().then((response) => {
           this.tableData = response.data;
         });
       },
