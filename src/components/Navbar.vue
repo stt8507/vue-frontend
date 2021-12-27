@@ -24,11 +24,12 @@
         </el-submenu>
       </el-submenu>
       <el-menu-item index="3" disabled>消息中心</el-menu-item>
-      <el-menu-item index="4"><router-link to="/" @click="logout()">登出</router-link></el-menu-item>
+      <el-menu-item index="4"><el-button type="primary" style="width: 100%" @click="logout">登出</el-button></el-menu-item>
     </el-menu>
   </nav>
 </template>
 <script>
+
 export default {
   name: "Navbar",
   data() {
@@ -41,8 +42,9 @@ export default {
       console.log(key, keyPath);
     },
     logout() {
-      localStorage.removeItem('token');
+      localStorage.removeItem('token')
       this.$store.commit("SetAuth");
+      this.$router.push("/");
       this.$forceUpdate();
     },
   },

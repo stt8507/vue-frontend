@@ -48,7 +48,7 @@ import MemberEdit from "./MemberEdit.vue";
       },
       async change(e){
         this.$forceUpdate();
-        await MemberService.getMemberByName(e).then((response) => {
+        await MemberService.getMemberByName(e, localStorage.getItem('token')).then((response) => {
           this.tableData = [];
           this.tableData.push(response.data);
         }).catch(() =>{
@@ -58,7 +58,7 @@ import MemberEdit from "./MemberEdit.vue";
       }
     },
     created() {
-      //this.getMembers();
+      this.getMembers();
     },
   }
 </script>

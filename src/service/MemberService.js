@@ -12,7 +12,7 @@ class MemberService{
         return axios.get(EMPLOYEE_BASE_URI + `/id/${id}`);
     }
     getMemberByName(username){
-        return axios.get(EMPLOYEE_BASE_URI + `/userName/${username}`)
+        return axios.get(EMPLOYEE_BASE_URI + `/userName/${username}`);
     }
     createMember(data){
         axios.post(EMPLOYEE_BASE_URI , data);
