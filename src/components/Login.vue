@@ -14,9 +14,6 @@
     </el-form-item>
     <el-form-item>
       <el-checkbox v-model="checked" checked class="remember">記住密碼</el-checkbox>
-      <el-col class="inline" :span="7">
-        <member-edit :source="editVal.source" :submitName='editVal.submitName' />
-      </el-col>
     </el-form-item>
     <el-form-item style="width: 100%">
       <el-button type="primary" style="width: 100%" @click="login">登入</el-button>
@@ -27,10 +24,9 @@
 </template>
 
 <script>
-import MemberEdit from "./MemberEdit.vue";
+
 import axios from '../service/axios';
 export default {
-  components: { MemberEdit },
   name: "登入",
   data() {
     return {
@@ -38,12 +34,6 @@ export default {
       account: {
         username: "",
         password: "",
-      },
-      editVal:{
-        source : '註冊會員',
-        submitName : '立即註冊',
-        type: 'text',
-        size: '',
       },
       rules: {
         username: [

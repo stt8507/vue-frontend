@@ -1,5 +1,5 @@
 <template>
-  <div text-align="left">
+  <section>
     <el-button :type="type" :size="size" @click="dialogVisible = true">{{ source }}</el-button>
 
     <el-dialog title="會員情報" :visible.sync="dialogVisible" width="30%">
@@ -25,7 +25,7 @@
         </el-form-item>
       </el-form>
     </el-dialog>
-  </div>
+  </section>
 </template>
 
 

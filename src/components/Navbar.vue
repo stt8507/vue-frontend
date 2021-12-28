@@ -5,41 +5,47 @@
       :default-active="activeIndex2"
       class="el-menu-demo"
       mode="horizontal"
-      @select="handleSelect"
       background-color="#545c64"
       text-color="#fff"
       active-text-color="#ffd04b"
     >
-      <el-menu-item index="1">处理中心</el-menu-item>
-      <el-submenu index="2">
-        <template slot="title">我的工作台</template>
-        <el-menu-item index="2-1">选项1</el-menu-item>
-        <el-menu-item index="2-2">选项2</el-menu-item>
-        <el-menu-item index="2-3">选项3</el-menu-item>
-        <el-submenu index="2-4">
-          <template slot="title">选项4</template>
-          <el-menu-item index="2-4-1">选项1</el-menu-item>
-          <el-menu-item index="2-4-2">选项2</el-menu-item>
-          <el-menu-item index="2-4-3">选项3</el-menu-item>
-        </el-submenu>
-      </el-submenu>
-      <el-menu-item index="3" disabled>消息中心</el-menu-item>
-      <el-menu-item index="4"><el-button type="primary" style="width: 100%" @click="logout">登出</el-button></el-menu-item>
+      <el-menu-item index="1"><el-button type="text" style="width: 100%" v-on:click="changeToHome('home')">首頁</el-button></el-menu-item>
+      <el-menu-item index="2"><el-button type="text" style="width: 100%" v-on:click="changeToHome('manage')">處理中心</el-button></el-menu-item>
+      <el-menu-item index="3">
+        <el-menu-item index="4">
+          <template>
+            <slot>
+              <member-edit :source="editVal.source" :submitName='editVal.submitName' :type="editVal.type" />
+            </slot>
+          </template>
+          </el-menu-item>
+      </el-menu-item>
+      <el-menu-item index="5"><el-button type="text" style="width: 100%" @click="logout">登出</el-button></el-menu-item>
     </el-menu>
   </nav>
 </template>
 <script>
+import MemberEdit from './MemberEdit.vue';
+import MemberEditVue from './MemberEdit.vue';
 
 export default {
+  components: { MemberEdit },
   name: "Navbar",
+  comments: MemberEditVue,
   data() {
     return {
       activeIndex2: "1",
+      editVal:{
+        source : '註冊會員',
+        submitName : '立即註冊',
+        type: 'text',
+        size: '',
+      },
     };
   },
   methods: {
-    handleSelect(key, keyPath) {
-      console.log(key, keyPath);
+    changeToHome(data){
+      this.$emit( "changeToHome", data);
     },
     logout() {
       localStorage.removeItem('token')

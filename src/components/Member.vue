@@ -14,7 +14,6 @@
         <el-col :span="12">
           <el-button size="mini" type="danger" @click="handleDelete(scope.row.id)">Delete</el-button>
         </el-col>
-        
       </template>
     </el-table-column>
   </el-table>
@@ -48,7 +47,7 @@ import MemberEdit from "./MemberEdit.vue";
       },
       async change(e){
         this.$forceUpdate();
-        await MemberService.getMemberByName(e, localStorage.getItem('token')).then((response) => {
+        await MemberService.getMemberByName(e).then((response) => {
           this.tableData = [];
           this.tableData.push(response.data);
         }).catch(() =>{

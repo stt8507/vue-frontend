@@ -18,7 +18,7 @@ class MemberService{
         axios.post(EMPLOYEE_BASE_URI , data);
     }
     updateMember(data){
-        axios.post(EMPLOYEE_BASE_URI + `/${data.id}`, data);
+        axios.put(EMPLOYEE_BASE_URI + `/${data.id}`, data);
     }
     deleteMember(id){
         axios.delete(EMPLOYEE_BASE_URI + `/${id}`);
