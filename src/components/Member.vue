@@ -2,7 +2,8 @@
   <el-table :data="tableData" style="width: 100%">
     <el-table-column label="id" prop="id"></el-table-column>
     <el-table-column label="Name" prop="userName"></el-table-column>
-    <el-table-column label="password" prop="password"></el-table-column>
+    <el-table-column label="firstName" prop="firstName"></el-table-column>
+    <el-table-column label="lastName" prop="lastName"></el-table-column>
     <el-table-column label="EmailId" prop="emailId"></el-table-column>
     <el-table-column align="right">
       <template slot="header" slot-scope="scope">

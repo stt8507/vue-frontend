@@ -12,9 +12,6 @@
     <el-form-item prop="password">
       <el-input type="password" v-model="account.password" auto-complete="off" placeholder="密碼"></el-input>
     </el-form-item>
-    <el-form-item>
-      <el-checkbox v-model="checked" checked class="remember">記住密碼</el-checkbox>
-    </el-form-item>
     <el-form-item style="width: 100%">
       <el-button type="primary" style="width: 100%" @click="login">登入</el-button>
     </el-form-item>
