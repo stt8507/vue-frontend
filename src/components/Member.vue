@@ -47,7 +47,7 @@ import MemberEdit from "./MemberEdit.vue";
         this.tableData.splice(index, 1);
       },
       async change(e, scope){
-        //this.$forceUpdate();
+        this.$forceUpdate();
         this.tableData =[];
         
         if(parseInt(e.length) === parseInt(0)){
