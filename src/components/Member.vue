@@ -13,7 +13,7 @@
       <template slot-scope="scope">
         <member-edit :source="editVal.source" :submitName='editVal.submitName' :type="editVal.type" :size="editVal.size" :inputForm="scope.row"/>
         <el-col :span="12">
-          <el-button size="mini" type="danger" @click="handleDelete(scope.row.id)">Delete</el-button>
+          <el-button size="mini" type="danger" @click="handleDelete(scope.row, scope.$index)">Delete</el-button>
         </el-col>
       </template>
     </el-table-column>
@@ -43,8 +43,9 @@ import MemberEdit from "./MemberEdit.vue";
           this.tableData = response.data;
         });
       },
-      handleDelete(id) {
-        MemberService.deleteMember(id);
+      handleDelete(row, index) {
+        MemberService.deleteMember(row.id);
+        this.tableData.splice(index, 1);
       },
       async change(e){
         this.$forceUpdate();
