@@ -7,8 +7,7 @@
     <el-table-column label="EmailId" prop="emailId"></el-table-column>
     <el-table-column align="right">
       <template slot="header" slot-scope="scope">
-        <el-input @keyup.enter.native="searchMemberbyName(scope.row.userName, search)"
-        @input="change($event)" v-model="search" size="mini" placeholder="输入關键字搜索"/>
+        <el-input @input="change($event, scope)" v-model="search" size="mini" placeholder="输入關键字搜索"/>
       </template>
       <template slot-scope="scope">
         <member-edit :source="editVal.source" :submitName='editVal.submitName' :type="editVal.type" :size="editVal.size" :inputForm="scope.row"/>
@@ -47,15 +46,21 @@ import MemberEdit from "./MemberEdit.vue";
         MemberService.deleteMember(row.id);
         this.tableData.splice(index, 1);
       },
-      async change(e){
-        this.$forceUpdate();
-        await MemberService.getMemberByName(e).then((response) => {
+      async change(e, scope){
+        //this.$forceUpdate();
+        this.tableData =[];
+        
+        if(parseInt(e.length) === parseInt(0)){
+          this.getMembers();
+        }else{
+          await MemberService.getMemberByName(e).then((response) => {
           this.tableData = [];
           this.tableData.push(response.data);
-        }).catch(() =>{
-          this.tableData = [];
-        });
-        
+          }).catch(() =>{
+            this.tableData = [];
+            console.log(scope.row.id);
+          });
+        }
       }
     },
     created() {
