@@ -48,8 +48,7 @@ export default {
       this.$emit( "changeToHome", data);
     },
     logout() {
-      localStorage.removeItem('token')
-      this.$store.commit("SetAuth");
+      localStorage.removeItem('token');
       this.$router.push("/");
       this.$forceUpdate();
     },

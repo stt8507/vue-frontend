@@ -22,10 +22,6 @@ axios.interceptors.request.use(
     error => {
       if (error.response) {
         console.log('axios:' + error.response.status);
-        switch (error.response.status) {
-          case 401:
-              console.log(error);
-        }
       }
       return Promise.reject(error.response);  
     }
